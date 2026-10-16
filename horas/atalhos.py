@@ -1,4 +1,4 @@
-from .models import Cliente
+from .models import Cliente, Lancamento
 
 
 class ac():
@@ -16,13 +16,17 @@ class ac():
         clientes_teste = Cliente.objects.filter(nome_cliente__startswith="cliente_teste")
         alternativa = input(f"Deletar todos os clientes teste?")
         if alternativa == "y":
+            Lancamento.objects.filter(cliente__in=clientes_teste).delete()
             clientes_teste.delete()
             return Cliente.objects.all()
         else:
             return
 
-
-
+class al():
+    
+    """
+    Atalhos para operações com objetos da classe Lancamento
+    """
 
     
 """"
