@@ -3,8 +3,8 @@ from django.views import generic
 from .models import Cliente, Lancamento
 
 
-def lancamentos_por_cliente(cliente, lancamento):
-        return Lancamento.objects.filter(cliente=Cliente.objects.get(nome_cliente="oclienteteste")))
+def lancamentos_por_cliente(cliente_id):
+        return Lancamento.objects.filter(cliente=Cliente.objects.get(nome_cliente="oclienteteste"))
 
 class IndexView(LoginRequiredMixin, generic.ListView):
     template_name = "horas/dashboard.html"

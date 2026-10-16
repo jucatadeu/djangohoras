@@ -11,7 +11,7 @@ class Grupo(models.Model):
 
 
 class Cliente(models.Model):
-    nome_cliente = models.CharField(max_length=50)
+    nome_cliente = models.CharField(max_length=50, unique=True)
     valor_hora = models.PositiveIntegerField(default=0, blank=True, null=True)
     grupo = models.ForeignKey(
         Grupo,
@@ -31,9 +31,3 @@ class Lancamento(models.Model):
     diahora_inicio = models.DateTimeField(null=True)
     diahora_fim = models.DateTimeField(null=True)
     horas_totais = models.DurationField(null=True)
-
-    
-
-
-
-    

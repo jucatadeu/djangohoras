@@ -21,3 +21,6 @@ class TestCliente(TestCase):
         )
 
         self.assertTrue(Lancamento.objects.filter(cliente=Cliente.objects.get(nome_cliente="oclienteteste")))
+
+
+        
