@@ -6,7 +6,7 @@ from .models import Cliente
 
 class DashboardView(LoginRequiredMixin, generic.ListView):
     template_name = "horas/dashboard.html"
-    context_object_name = "lista_clientes_usuario"
+    context_object_name = "lista_clientes"
 
     def get_queryset(self):
-        return Cliente.objects.filter(usuario=self.request.user)
+        return Cliente.objects.all()

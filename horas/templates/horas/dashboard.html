@@ -4,9 +4,9 @@
 <link rel="stylesheet" href="{% static 'horas/style.css' %}">
 
 {% block content %}
-{% if lista_clientes_usuario %}
+{% if lista_clientes %}
     <ul>
-    {% for cliente in lista_clientes_usuario %}
+    {% for cliente in lista_clientes %}
         <p> {{ cliente.nome_cliente }}</p>
     {% endfor %}
     </ul>
