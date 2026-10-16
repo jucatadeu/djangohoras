@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'horas/style.css' %}">
+
+{% block content %}
+{% if lista_clientes_usuario %}
+    <ul>
+    {% for cliente in lista_clientes_usuario %}
+        <p> {{ cliente.nome_cliente }}</p>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No polls are available.</p>
+{% endif %}
+{%endblock%}
