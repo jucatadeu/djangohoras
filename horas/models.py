@@ -1,6 +1,5 @@
 from django.db import models
 from contas.models import Usuario
-from django.utils import timezone
 
 
 class Grupo(models.Model):

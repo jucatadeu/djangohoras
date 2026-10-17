@@ -1,16 +1,18 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block styleshehet %}
 <link rel="stylesheet" href="{% static 'horas/style.css' %}">
+{% endblock  %}
 
 {% block content %}
 {% if lista_clientes %}
     <ul>
     {% for cliente in lista_clientes %}
-        <p> {{ cliente.nome_cliente }}</p>
+        <{{ cliente.nome_cliente }}
     {% endfor %}
     </ul>
 {% else %}
-    <p>No polls are available.</p>
+    <p>Não há clientes cadastrados.</p>
 {% endif %}
 {%endblock%}

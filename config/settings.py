@@ -23,6 +23,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'horas',
     'contas',
+    'config',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
