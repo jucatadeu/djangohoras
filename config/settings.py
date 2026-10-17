@@ -23,7 +23,6 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'horas',
     'contas',
-    'config',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -126,3 +125,6 @@ MAILERS = {
 LOGIN_URL = "contas:login"
 LOGIN_REDIRECT_URL = "horas:dashboard"
 LOGOUT_REDIRECT_URL = "contas:login"
+
+
+STATICFILES_DIRS = [BASE_DIR / 'static']

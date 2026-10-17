@@ -2,7 +2,9 @@
 {% load static %}
 <html lang="pt-BR">
 <head>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="{% static 'qstylesheet.css' %}">
+
+    {% block css_extra %}{% endblock %}
     <title>{% block title %}Controle de Horas{% endblock %}</title>
 </head>
 
