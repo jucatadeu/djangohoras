@@ -122,6 +122,6 @@ MAILERS = {
 }
 
 
-LOGIN_URL = "login"
-LOGIN_REDIRECT_URL = "dashboard"
-LOGOUT_REDIRECT_URL = "login"
+LOGIN_URL = "contas:login"
+LOGIN_REDIRECT_URL = "horas:dashboard"
+LOGOUT_REDIRECT_URL = "contas:login"
