@@ -44,3 +44,6 @@ class Lancamento(models.Model):
     def save(self, *args, **kwargs):
         self.horas_totais = self.diahora_fim - self.diahora_inicio
         self.save(*args, **kwargs)
+
+    def __str__(self):
+        return self.cliente, self.horas_totais, self.diahora_inicio, self.diahora_fim, self.usuario
