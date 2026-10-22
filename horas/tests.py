@@ -4,13 +4,14 @@ from django.test import TestCase
 from django.db import models
 from django.utils import timezone
 
-from .models import Cliente, Lancamento, Usuario
+from .models import Cliente, Lancamento
+from contas.models import Usuario
 
 
 
 class TestCliente(TestCase):
-    def test_vinculo_lancamento_cliente(self):
-        
+    def setUp(self):
+
         Cliente.objects.create(nome_cliente = "oclienteteste")
 
         Lancamento.objects.create(
@@ -20,7 +21,6 @@ class TestCliente(TestCase):
             diahora_fim = timezone.now(),
         )
 
+    def test_vinculo_lancamento_cliente(self):        
         self.assertTrue(Lancamento.objects.filter(cliente=Cliente.objects.get(nome_cliente="oclienteteste")))
-
-
         

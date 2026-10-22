@@ -1,6 +1,6 @@
 from django.db import models
-from contas.models import Usuario
 from django.conf import settings
+from django import forms
 
 class Grupo(models.Model):
     nome_grupo = models.CharField(max_length=50)
@@ -22,7 +22,7 @@ class Cliente(models.Model):
     
     usuarios = models.ManyToManyField(
         settings.AUTH_USER_MODEL,
-        related_name="clientes_selecionados",
+        related_name="clientes_do_usuario",
         blank=True,
     )
 
@@ -31,19 +31,26 @@ class Cliente(models.Model):
 
     
 class Lancamento(models.Model):
-    usuario = settings.AUTH_USER_MODEL
+    usuario = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.PROTECT,
+        related_name="lancamentos",
+    )
+
     cliente = models.ForeignKey(
         Cliente,
         on_delete=models.PROTECT,
-        related_name="lancametos", 
+        related_name="lancamentos", 
     )
+
     diahora_inicio = models.DateTimeField(null=True)
     diahora_fim = models.DateTimeField(null=True)
     horas_totais = models.DurationField(null=True)
 
+
     def save(self, *args, **kwargs):
         self.horas_totais = self.diahora_fim - self.diahora_inicio
-        self.save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
     def __str__(self):
-        return self.cliente, self.horas_totais, self.diahora_inicio, self.diahora_fim, self.usuario
+        return f"{self.cliente.nome_cliente}, {self.diahora_inicio}, {self.usuario}"

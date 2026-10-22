@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.conf import settings
 from .models import Usuario
 from django.shortcuts import resolve_url
-
+from .models import Usuario
 
 class TesteLoginLogout(TestCase):
 
