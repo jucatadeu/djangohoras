@@ -33,6 +33,8 @@ class TestLancamento(TestCase):
     def test_diahorafim_nulo(self):
         self.lancamento_teste.diahora_fim = None
         self.lancamento_teste.save()
+        self.lancamento_teste.refresh_from_db()
+
 
         self.assertIsNone(self.lancamento_teste.horas_totais)
 
