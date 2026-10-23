@@ -35,6 +35,5 @@ class TestLancamento(TestCase):
         self.lancamento_teste.save()
         self.lancamento_teste.refresh_from_db()
 
-
         self.assertIsNone(self.lancamento_teste.horas_totais)
 
