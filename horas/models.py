@@ -1,6 +1,9 @@
 from django.db import models
 from django.conf import settings
-from django import forms
+from django.core.exceptions import ValidationError
+from django.utils import timezone
+
+
 
 class Grupo(models.Model):
     nome_grupo = models.CharField(max_length=50)
@@ -43,17 +46,26 @@ class Lancamento(models.Model):
         related_name="lancamentos", 
     )
 
-    diahora_inicio = models.DateTimeField(null=True)
-    diahora_fim = models.DateTimeField(null=True)
+    diahora_inicio = models.DateTimeField(default=timezone.now)
+    diahora_fim = models.DateTimeField(null=True, blank=True)
     horas_totais = models.DurationField(null=True)
 
 
     def save(self, *args, **kwargs):
-        if self.diahora_fim is None or self.diahora_inicio is None:
+        if self.diahora_fim is None:
             self.horas_totais = None 
         else:
             self.horas_totais = self.diahora_fim - self.diahora_inicio
         super().save(*args, **kwargs)
+
+    def clean(self):
+        if self.diahora_fim or self.diahora_inicio is None:
+            return
+              
+        if self.diahora_fim <= self.diahora_inicio:
+            raise ValidationError(
+            {"diahora_fim": "A hora do término deve ser posterior à hora de início"}
+            )
 
     def __str__(self):
         return f"{self.cliente.nome_cliente}, {self.diahora_inicio}, {self.usuario}"
