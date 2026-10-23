@@ -49,7 +49,7 @@ class Lancamento(models.Model):
 
 
     def save(self, *args, **kwargs):
-        if self.diahora_fim == None or self.diahora_inicio == None:
+        if self.diahora_fim is None or self.diahora_inicio is None:
             self.horas_totais = None 
         else:
             self.horas_totais = self.diahora_fim - self.diahora_inicio
