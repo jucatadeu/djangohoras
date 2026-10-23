@@ -49,6 +49,7 @@ class Lancamento(models.Model):
     diahora_inicio = models.DateTimeField(default=timezone.now)
     diahora_fim = models.DateTimeField(null=True, blank=True)
     horas_totais = models.DurationField(null=True, editable=False)
+    descrição = models.CharField(null=True, blank=True)
 
 
     def save(self, *args, **kwargs):
