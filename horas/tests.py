@@ -1,26 +1,38 @@
 import datetime
 
 from django.test import TestCase
-from django.db import models
 from django.utils import timezone
 
 from .models import Cliente, Lancamento
 from contas.models import Usuario
 
-
-
-class TestCliente(TestCase):
+class TestLancamento(TestCase):
     def setUp(self):
 
-        Cliente.objects.create(nome_cliente = "oclienteteste")
+        self.cliente_teste = Cliente.objects.create(nome_cliente = "cliente_teste")
+        self.usuario_teste = Usuario.objects.create(username="usuario_teste")
 
-        Lancamento.objects.create(
-            usuario = Usuario.objects.create(username="ousuarioteste"),
-            cliente = Cliente.objects.get(nome_cliente="oclienteteste"),
-            diahora_inicio = timezone.now() - datetime.timedelta(hours=5),
-            diahora_fim = timezone.now(),
-        )
+        self.agora = timezone.now()
+        self.lancamento_teste = Lancamento.objects.create(
+            usuario = self.usuario_teste,
+            cliente = self.cliente_teste,
+            diahora_inicio = self.agora - datetime.timedelta(hours=5),
+            diahora_fim = self.agora,
+            )
 
-    def test_vinculo_lancamento_cliente(self):        
-        self.assertTrue(Lancamento.objects.filter(cliente=Cliente.objects.get(nome_cliente="oclienteteste")))
-        
+    def test_vinculo_lancamento_cliente(self):
+        self.assertEqual(self.lancamento_teste.cliente, self.cliente_teste)
+
+    def test_calculo_horas_totais(self):
+        self.lancamento_teste.diahora_inicio = self.agora - datetime.timedelta(hours=3)
+        self.lancamento_teste.save()
+        self.lancamento_teste.refresh_from_db()
+
+        self.assertEqual(self.lancamento_teste.horas_totais, datetime.timedelta(hours=3))
+
+    def test_diahorafim_nulo(self):
+        self.lancamento_teste.diahora_fim = None
+        self.lancamento_teste.save()
+
+        self.assertIsNone(self.lancamento_teste.horas_totais)
+
