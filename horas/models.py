@@ -48,7 +48,7 @@ class Lancamento(models.Model):
 
     diahora_inicio = models.DateTimeField(default=timezone.now)
     diahora_fim = models.DateTimeField(null=True, blank=True)
-    horas_totais = models.DurationField(null=True)
+    horas_totais = models.DurationField(null=True, editable=False)
 
 
     def save(self, *args, **kwargs):
@@ -59,12 +59,12 @@ class Lancamento(models.Model):
         super().save(*args, **kwargs)
 
     def clean(self):
-        if self.diahora_fim or self.diahora_inicio is None:
+        if self.diahora_fim is None or self.diahora_inicio is None:
             return
               
         if self.diahora_fim <= self.diahora_inicio:
             raise ValidationError(
-            {"diahora_fim": "A hora do término deve ser posterior à hora de início"}
+                {"diahora_fim": "A hora do término deve ser posterior à hora de início"}
             )
 
     def __str__(self):
